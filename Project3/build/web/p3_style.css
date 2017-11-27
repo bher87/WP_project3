@@ -1,0 +1,79 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 25, 2017, 2:18:42 PM
+    Author     : TuanPhan
+*/
+
+/* Global styles
+------------------------------------*/
+body {
+	font-family: 'Roboto Slab', serif;
+	margin: 0;
+    background: #2B2D42;
+    color: #8D99AE;
+}
+a {
+  color: #EF233C;
+}
+a:hover {
+  text-decoration: none;
+}
+h1, h2 {
+	font-family: 'PT Serif', serif;
+}
+h2 {
+  font-size: 30px;
+}
+h1 {
+  font-size: 60px;
+}
+
+.wrap {
+	max-width: 950px;
+	margin: 0 auto;
+	padding: 50px;
+
+}
+
+.navbarWrap {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 5px 40px 5px 500px;
+
+}
+.navbar {
+    overflow: hidden;
+    font-family: Arial;
+}
+.navbar a{
+    float: left;
+    font-size: 18px;
+    color:aqua;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.wrapFooter {
+	max-width: 950px;
+	margin: 0 auto;
+	padding: 10px;
+
+}
+
+/* Header & Footer
+------------------------------------*/
+.image {
+    width: 150px;
+}
+
+/* main body
+------------------------------------*/
+.main {
+  background: #EDF2F4;
+  color: black;
+}
