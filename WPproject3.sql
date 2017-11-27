@@ -14,11 +14,12 @@ CREATE TABLE user (
 CREATE TABLE admin (
 	id int(11) NOT NULL,
 	adminName varchar(50) NOT NULL,
-	pword varchar(50) NOT NULL
+	pword varchar(50) NOT NULL,
+	role varchar(50) NOT NULL
 )
 
-INSERT INTO admin (id, adminName, pword) VALUES
-(1, 'admin', 'admin')
+INSERT INTO admin (id, adminName, pword, role) VALUES
+(1, 'admin', 'admin', 'Admin')
 
 CREATE TABLE inventory (
 	id int(11) NOT NULL,
