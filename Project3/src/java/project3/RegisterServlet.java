@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
+/*
  *
  * @author TuanPhan
  */
 public class RegisterServlet extends HttpServlet {
 
-    /**
+    /*
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -31,33 +31,26 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-            /* TODO output your page here. You may use following sample code. */
+        out.println();
+        // TODO output your page here. You may use following sample code.
         String fullname = request.getParameter("fullname");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
         RegisterBean bean = new RegisterBean();
         bean.setFullname(fullname);
         bean.setUsername(username);
         bean.setPassword(password);
-        
         RegisterDao dao = new RegisterDao();
         String userRegistered = dao.register(bean);
-        
-        if(userRegistered.equals("SUCCESS"))   //On success, you can display a message to user on Home page
-        {
+        if(userRegistered.equals("SUCCESS")) {  //On success, you can display a message to user on Home page
             request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
-        else   //On Failure, display a meaningful message to the User.
-        {
+        } else {  //On Failure, display a meaningful message to the User.
             request.setAttribute("errMessage", userRegistered);
             request.getRequestDispatcher("p3_register.jsp").forward(request, response);
         }
-        
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /*
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -66,12 +59,11 @@ public class RegisterServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /*
      * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
@@ -80,12 +72,11 @@ public class RegisterServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /*
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
@@ -94,5 +85,4 @@ public class RegisterServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
