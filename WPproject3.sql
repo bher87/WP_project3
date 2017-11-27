@@ -31,6 +31,7 @@ CREATE TABLE inventory (
 )
 
 CREATE TABLE tracking (
+	id int(11) NOT NULL,
 	ISBN varchar(50) NOT NULL,
     userID varchar(50) NOT NULL
 )
