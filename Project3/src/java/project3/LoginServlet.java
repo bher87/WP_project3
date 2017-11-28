@@ -48,15 +48,11 @@ public class LoginServlet extends HttpServlet {
             LoginDao loginDao = new LoginDao();
             try {
                 String userValidate = loginDao.authenticateUser(bean);
-                if(userValidate.equals("Admin_Role"))
+                if(userValidate.equals("true"))
                 {   
-                    ArrayList cart = new ArrayList();
-                    int totalcost = 0;            
                     HttpSession session = request.getSession();
                     session.setAttribute("Admin", name);
                     request.setAttribute("username", name);
-                    session.setAttribute("itemlist", cart);
-                    session.setAttribute("total", totalcost);
                     request.getRequestDispatcher("p3_userView.jsp").forward(request, response); 
                 }
                 else

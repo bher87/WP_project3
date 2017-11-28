@@ -28,35 +28,29 @@ public String authenticateUser(LoginBean bean)
 
     String userNameDB = "";
     String passwordDB = "";
-    String roleDB = "";
 
     try
     {
         con = DBConnection.createConnection();
         statement = con.createStatement();
-        resultSet = statement.executeQuery("SELECT username,password,role FROM admins");
+        resultSet = statement.executeQuery("SELECT username,password FROM user");
 
         while(resultSet.next())
         {
             userNameDB = resultSet.getString("username");
             passwordDB = resultSet.getString("password");
-            roleDB = resultSet.getString("role");
 
-            if(userName.equals(userNameDB) && password.equals(passwordDB) && roleDB.equals("Admin"))
+            if(userName.equals(userNameDB) && password.equals(passwordDB))
             { 
-                return "Admin_Role";
-            }
-            else if(userName.equals(userNameDB) && password.equals(passwordDB) && roleDB.equals("Editor"))
-                return "Editor_Role";
-            else if(userName.equals(userNameDB) && password.equals(passwordDB) && roleDB.equals("User"))
-                return "User_Role";
+                return "true";
             }
         }
+    }
     catch(SQLException e)
     {
         e.printStackTrace();
     }
     
-    return "Invalid user credentials";
+    return "Invalid";
     }
 }

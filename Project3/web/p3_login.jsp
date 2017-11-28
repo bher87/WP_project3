@@ -5,8 +5,9 @@
 --%>
 
 <%@ include file="p3_header.jsp" %> 
-    <form action="LoginServlet" method="post">  
+    <form action="LoginServlet" name="user" method="post">  
         <table border="0">
+            <caption><h2>User Login</h2></caption>
             <tr> 
                 <td> Username: </td> 
                 <td><input type="text" name="username" /> </td>

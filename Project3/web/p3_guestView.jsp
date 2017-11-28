@@ -17,36 +17,37 @@
         Statement statement = null;
         ResultSet resultSet = null;
     %>
-    <h2 align="center"><font><strong>Retrieve data from database in jsp</strong></font></h2>
+    <h2 align="center"><font><strong>Book For Sale</strong></font></h2>
     <table align="center" cellpadding="5" cellspacing="5" border="1">
         <tr>
 
         </tr>
         <tr bgcolor="#A52A2A">
-            <td><b>id</b></td>
-            <td><b>Body Style</b></td>
-            <td><b>Mile</b></td>
-            <td><b>Year</b></td>
-            <td><b>State</b></td>
+            <td><b>ISBN</b></td>
+            <td><b>Title Style</b></td>
+            <td><b>Author</b></td>
+            <td><b>Edition</b></td>
+            <td><b>Price</b></td>
         </tr>
         <%
             try{ 
                 connection = DBConnection.createConnection();
                 statement=connection.createStatement();
-                String sql ="SELECT * FROM corvettes";
+                String sql ="SELECT * FROM book";
 
                 resultSet = statement.executeQuery(sql);
                 while(resultSet.next()){
             %>
             <tr bgcolor="#DEB887">
 
-                <td><%=resultSet.getInt("Vette_id") %></td>
-                <td><%=resultSet.getString("Body_Style") %></td>
-                <td><%=resultSet.getFloat("Miles") %></td>
-                <td><%=resultSet.getInt("Year") %></td>
-                <td><%=resultSet.getInt("State") %></td>
+                <td><%=resultSet.getInt("isbn")%></td>
+                <td><%=resultSet.getString("title") %></td>
+                <td><%=resultSet.getString("author") %></td>
+                <td><%=resultSet.getInt("edition") %></td>
+                <td><%=resultSet.getInt("price") %></td>
 
             </tr>
+
 
             <% 
             }
