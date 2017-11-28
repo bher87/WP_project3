@@ -16,12 +16,6 @@ public final class p3_005fguestView_jsp extends org.apache.jasper.runtime.HttpJs
 
   private static java.util.List<String> _jspx_dependants;
 
-  static {
-    _jspx_dependants = new java.util.ArrayList<String>(2);
-    _jspx_dependants.add("/p3_header.jsp");
-    _jspx_dependants.add("/p3_footer.jsp");
-  }
-
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
 
   public java.util.List<String> getDependants() {
@@ -61,19 +55,6 @@ public final class p3_005fguestView_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("    \n");
       out.write("    \n");
       out.write("    \n");
-      out.write("    ");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("<!DOCTYPE html>\n");
-      out.write("<html>\n");
-      out.write("    <head>\n");
-      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("        <title>JSP Page</title>\n");
-      out.write("    </head>\n");
-      out.write("    <body>\n");
-      out.write("   ");
-      out.write(" \n");
       out.write("     \n");
       out.write("    ");
 
@@ -136,12 +117,6 @@ public final class p3_005fguestView_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("\n");
       out.write("            </table>\n");
       out.write("   \n");
-      out.write("        \n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("    </body>\n");
-      out.write("</html>\n");
       out.write(" \n");
       out.write("        \n");
       out.write("\n");

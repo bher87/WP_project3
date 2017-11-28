@@ -70,6 +70,36 @@ public final class p3_005fuserView_jsp extends org.apache.jasper.runtime.HttpJsp
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
       out.write("        <title>JSP Page</title>\n");
       out.write("        <link href=\"p3_style.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+      out.write("        <script> \n");
+      out.write("            function validate()\n");
+      out.write("            { \n");
+      out.write("                var fullname = document.form.fullname.value;\n");
+      out.write("                var username = document.form.username.value; \n");
+      out.write("                var password = document.form.password.value;\n");
+      out.write("                var confirmPassword= document.form.conpassword.value;\n");
+      out.write("\n");
+      out.write("                if (fullname==null || fullname==\"\")\n");
+      out.write("                { \n");
+      out.write("                    alert(\"Full Name cannot be blank\"); \n");
+      out.write("                    return false; \n");
+      out.write("                }\n");
+      out.write("                else if (username==null || username==\"\")\n");
+      out.write("                { \n");
+      out.write("                    alert(\"Username cannot be blank\"); \n");
+      out.write("                    return false; \n");
+      out.write("                }\n");
+      out.write("                else if(password.length<7)\n");
+      out.write("                { \n");
+      out.write("                    alert(\"Password must be at least 7 characters long.\"); \n");
+      out.write("                    return false; \n");
+      out.write("                } \n");
+      out.write("                else if (password!=confirmPassword)\n");
+      out.write("                { \n");
+      out.write("                    alert(\"Confirm Password not match with the Password\"); \n");
+      out.write("                    return false; \n");
+      out.write("                } \n");
+      out.write("             } \n");
+      out.write("        </script>\n");
       out.write("    </head>\n");
       out.write("    \n");
       out.write("    <body>\n");
@@ -94,12 +124,11 @@ public final class p3_005fuserView_jsp extends org.apache.jasper.runtime.HttpJsp
     
       out.write("\n");
       out.write("    <h2 align=\"center\"><font><strong>Retrieve data from database in jsp</strong></font></h2>\n");
-      out.write("    <form action=\"\" method=\"post\">\n");
       out.write("        <table align=\"center\" cellpadding=\"5\" cellspacing=\"5\" border=\"1\">\n");
       out.write("            <tr>\n");
       out.write("\n");
       out.write("            </tr>\n");
-      out.write("            <tr bgcolor=\"#red\">\n");
+      out.write("            <tr bgcolor=\"#A52A2A\">\n");
       out.write("                <td><b>id</b></td>\n");
       out.write("                <td><b>Body Style</b></td>\n");
       out.write("                <td><b>Miles(K)</b></td>\n");
@@ -112,42 +141,56 @@ public final class p3_005fuserView_jsp extends org.apache.jasper.runtime.HttpJsp
             try{ 
                 connection = DBConnection.createConnection();
                 statement=connection.createStatement();
-                String sql ="SELECT * FROM corvettes";
+                String sql ="SELECT * FROM book";
 
                 resultSet = statement.executeQuery(sql);
                 while(resultSet.next()){
             
       out.write("\n");
-      out.write("            <tr bgcolor=\"\" id=\"+ ");
-      out.print(resultSet.getInt("Vette_id") );
-      out.write(" +\">\n");
+      out.write("            <form action=\"AddToCart\" method=\"post\">\n");
+      out.write("            <tr>\n");
       out.write("                <td>");
-      out.print(resultSet.getInt("Vette_id") );
+      out.print(resultSet.getInt("isbn"));
       out.write("</td>\n");
       out.write("                <td>");
-      out.print(resultSet.getString("Body_Style") );
+      out.print(resultSet.getString("title") );
       out.write("</td>\n");
       out.write("                <td>");
-      out.print(resultSet.getFloat("Miles") );
+      out.print(resultSet.getString("author") );
       out.write("</td>\n");
       out.write("                <td>");
-      out.print(resultSet.getInt("Year") );
+      out.print(resultSet.getInt("edition") );
       out.write("</td>\n");
       out.write("                <td>");
-      out.print(resultSet.getInt("State") );
+      out.print(resultSet.getInt("price") );
       out.write("</td>\n");
-      out.write("                <td><input type=\"submit\" onlick=\"\" value=\"Add To Card\"/></td>\n");
+      out.write("                <input type=\"hidden\" name=\"isbn\" value=\"+");
+      out.print(resultSet.getInt("isbn") );
+      out.write("\">\n");
+      out.write("                <input type=\"hidden\" name=\"title\" value=\"");
+      out.print(resultSet.getString("title") );
+      out.write("\">\n");
+      out.write("                <input type=\"hidden\" name=\"author\" value=\"");
+      out.print(resultSet.getString("author") );
+      out.write("\">\n");
+      out.write("                <input type=\"hidden\" name=\"edition\" value=\"");
+      out.print(resultSet.getInt("edition") );
+      out.write("\">\n");
+      out.write("                <input type=\"hidden\" name=\"price\" value=\"");
+      out.print(resultSet.getInt("price") );
+      out.write("\">\n");
+      out.write("                <td><input type=\"submit\" value=\"Add To Card\"/></td>\n");
       out.write("            </tr>\n");
+      out.write("            </form>\n");
       out.write("            ");
- 
-            }
+ }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
             
       out.write("\n");
-      out.write("    </form>\n");
+      out.write("    \n");
       out.write("\n");
       out.write("    </table>\n");
       out.write("    <div style=\"text-align:center\">  \n");

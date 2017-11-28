@@ -18,7 +18,6 @@
         ResultSet resultSet = null;
     %>
     <h2 align="center"><font><strong>Retrieve data from database in jsp</strong></font></h2>
-    <form action="" method="post">
         <table align="center" cellpadding="5" cellspacing="5" border="1">
             <tr>
 
@@ -35,27 +34,33 @@
             try{ 
                 connection = DBConnection.createConnection();
                 statement=connection.createStatement();
-                String sql ="SELECT * FROM corvettes";
+                String sql ="SELECT * FROM book";
 
                 resultSet = statement.executeQuery(sql);
                 while(resultSet.next()){
             %>
-            <tr bgcolor="" id="+ <%=resultSet.getInt("Vette_id") %> +">
-                <td><%=resultSet.getInt("Vette_id") %></td>
-                <td><%=resultSet.getString("Body_Style") %></td>
-                <td><%=resultSet.getFloat("Miles") %></td>
-                <td><%=resultSet.getInt("Year") %></td>
-                <td><%=resultSet.getInt("State") %></td>
-                <td><input type="submit" name="addtocart+<%= resultSet.getInt("Vette_id") %> +" value="Add To Card"/></td>
+            <form action="AddToCart" method="post">
+            <tr>
+                <td><%=resultSet.getInt("isbn")%></td>
+                <td><%=resultSet.getString("title") %></td>
+                <td><%=resultSet.getString("author") %></td>
+                <td><%=resultSet.getInt("edition") %></td>
+                <td><%=resultSet.getInt("price") %></td>
+                <input type="hidden" name="isbn" value="+<%=resultSet.getInt("isbn") %>">
+                <input type="hidden" name="title" value="<%=resultSet.getString("title") %>">
+                <input type="hidden" name="author" value="<%=resultSet.getString("author") %>">
+                <input type="hidden" name="edition" value="<%=resultSet.getInt("edition") %>">
+                <input type="hidden" name="price" value="<%=resultSet.getInt("price") %>">
+                <td><input type="submit" value="Add To Card"/></td>
             </tr>
-            <% 
-            }
+            </form>
+            <% }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
             %>
-    </form>
+    
 
     </table>
     <div style="text-align:center">  

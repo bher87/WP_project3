@@ -17,26 +17,36 @@ import java.sql.SQLException;
 import java.sql.Statement;
  
 public class RegisterDao {
-    public String register(RegisterBean bean) {
-        String fullname = bean.getFullname(); 
-        String username = bean.getUsername();
-        String password = bean.getPassword();
-        Connection con = null;
-        PreparedStatement statement = null;
-        try {
-            con = DBConnection.createConnection();
-            String query = "INSERT INTO user (id,fullname, username,password) VALUES (NULL,?,?,?)";
-            statement = con.prepareStatement(query);
-            statement.setString(1, fullname);
-            statement.setString(2, username);
-            statement.setString(3, password);
-            int i = statement.executeUpdate();
-            if (i!=0) { //Just to ensure data has been inserted into the database
-                return "SUCCESS"; 
-            }        
-        } catch(SQLException e) {
-            System.out.println("Error: " + e);
-        }
-        return "Invalid user credentials";
+ 
+public String register(RegisterBean bean)
+{
+    String fullname = bean.getFullname(); 
+    String username = bean.getUsername();
+    String password = bean.getPassword();
+ 
+    Connection con = null;
+    PreparedStatement statement = null;
+
+    try
+    {
+        con = DBConnection.createConnection();
+        String query = "INSERT INTO user (id,fullname, username,password) VALUES (NULL,?,?,?)";
+        statement = con.prepareStatement(query);
+        statement.setString(1, fullname);
+        statement.setString(2, username);
+        statement.setString(3, password);
+        
+        int i = statement.executeUpdate();
+        if (i!=0)  //Just to ensure data has been inserted into the database
+            return "SUCCESS"; 
+ 
+
+    }
+    catch(SQLException e)
+    {
+        e.printStackTrace();
+    }
+    
+    return "Invalid user credentials";
     }
 }

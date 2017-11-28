@@ -17,26 +17,26 @@
                 var fullname = document.form.fullname.value;
                 var username = document.form.username.value; 
                 var password = document.form.password.value;
-                var conpassword= document.form.conpassword.value;
+                var confirmPassword= document.form.conpassword.value;
 
                 if (fullname==null || fullname=="")
                 { 
-                    alert("Full Name can't be blank"); 
+                    alert("Full Name cannot be blank"); 
                     return false; 
                 }
                 else if (username==null || username=="")
                 { 
-                    alert("Username can't be blank"); 
+                    alert("Username cannot be blank"); 
                     return false; 
                 }
-                else if(password.length<6)
+                else if(password.length<7)
                 { 
-                    alert("Password must be at least 6 characters long."); 
+                    alert("Password must be at least 7 characters long."); 
                     return false; 
                 } 
-                else if (password!=conpassword)
+                else if (password!=confirmPassword)
                 { 
-                    alert("Confirm Password should match with the Password"); 
+                    alert("Confirm Password not match with the Password"); 
                     return false; 
                 } 
              } 
