@@ -2,6 +2,9 @@
     Document   : p3_adminView
     Created on : Nov 28, 2017, 1:11:43 AM
     Author     : hkwok1
+    The Java code in this file should probably be somewhere else because this is the file for the view.
+    Maybe there could be a separate file for each part (adminModel, adminController, adminView), and maybe do the same
+    for user (and maybe guest) as well.
 --%>
 
 <%@page import="java.sql.ResultSet"%>
