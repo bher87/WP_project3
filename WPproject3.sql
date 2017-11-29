@@ -31,3 +31,8 @@ CREATE TABLE tracking (
     userID varchar(50) NOT NULL
 )
 
+CREATE TABLE sale (
+	booktitle varchar(50) NOT NULL,
+    price varchar(50) NOT NULL,
+    username varchar(50) NOT NULL
+)
