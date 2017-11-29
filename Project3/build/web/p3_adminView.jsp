@@ -104,6 +104,32 @@
         }
         %>
     </table>
+    
+    <h3>Sales Records</h3>
+    <table align="center" cellpadding="5" cellspacing="5" border="1">
+        <tr bgcolor="#A52A2A">
+            <th>Title</th> 
+            <th>Price</th> 
+            <th>Username</th> 
+        </tr>
+        <%
+        try{ 
+            connection = DBConnection.createConnection();
+            statement = connection.createStatement();
+            String sql = "SELECT * FROM sale";
+            resultSet = statement.executeQuery(sql);
+            PrintWriter display3 = response.getWriter();
+            while(resultSet.next()){
+                display3.println("<tr><td>" + resultSet.getInt("booktitle") + "</td><td>" + resultSet.getString("price") + "</td><td>" + resultSet.getString("username") +"</td></tr>");
+            }
+            resultSet.close();
+            display3.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        %>
+    </table>
+    
   <%@ include file="p3_footer.jsp" %> 
             
     
