@@ -4,16 +4,13 @@ USE project3;
 
 CREATE TABLE user (
 	id int(11) NOT NULL,
-	role varchar(50) NOT NULL,
 	username varchar(50) NOT NULL,
 	pword varchar(50) NOT NULL,
-    firstname varchar(50) NOT NULL,
-    lastname varchar(50) NOT NULL,
-    billinginfo varchar(50) NOT NULL
+    fullname varchar(50) NOT NULL
 )
 
-INSERT INTO user (id, role, username, pword, firstname, lastname, billinginfo) VALUES
-(1, 'Admin', 'aluna3', 'test532', 'Alex', 'Luna', '1234567890')
+INSERT INTO user (id, username, pword, fullname) VALUES
+(1, 'aluna3', 'test532', 'Alex Luna')
 
 CREATE TABLE inventory (
 	id int(11) NOT NULL,
@@ -21,14 +18,7 @@ CREATE TABLE inventory (
 	title varchar(50) NOT NULL,
     author varchar(50) NOT NULL,
     edition varchar(50) NOT NULL,
-    price varchar(50) NOT NULL,
-    quantity int(11) NOT NULL
-)
-
-CREATE TABLE tracking (
-	id int(11) NOT NULL,
-	ISBN varchar(50) NOT NULL,
-    userID varchar(50) NOT NULL
+    price varchar(50) NOT NULL
 )
 
 CREATE TABLE sale (
