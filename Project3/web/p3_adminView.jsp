@@ -15,96 +15,23 @@
 <%@page import="java.io.*"%>
 
 <%@ include file="p3_header.jsp" %>  
-    <%
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
-    %>
-    
+
 <h2 align="center"><font><strong>Administrator Dashboard</strong></font></h2>
+    <jsp:useBean id = "book1" class = "project3.Bookbean"/>
     <h3>Inventory</h3>
     <table align="center" cellpadding="5" cellspacing="5" border="1">
         <tr bgcolor="#A52A2A">
-            <th>ID</th> 
             <th>ISBN</th> 
             <th>Title</th> 
             <th>Author</th> 
             <th>Edition</th> 
-            <th>Price</th> 
-            <th>Quantity</th>
+            <th>Price</th>
         </tr>
-        <%
-        try{ 
-            connection = DBConnection.createConnection();
-            statement = connection.createStatement();
-            String sql = "SELECT * FROM inventory";
-            resultSet = statement.executeQuery(sql);
-            PrintWriter display1 = response.getWriter();
-            while(resultSet.next()){
-                display1.println("<tr><td>" + resultSet.getInt("id") + "</td><td>" + resultSet.getString("ISBN") + "</td><td>" + resultSet.getString("title") + "</td><td>" + resultSet.getString("author") + "</td><td>" + resultSet.getString("edition") + "</td><td>$ " + resultSet.getString("price") + "</td><td>" + resultSet.getInt("quantity") + "</td></tr>");
-            }
-            resultSet.close();
-            display1.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        %>
-    </table>
-    
-    <h3>Users</h3>
-    <table align="center" cellpadding="5" cellspacing="5" border="1">
-        <tr bgcolor="#A52A2A">
-            <th>ID</th> 
-            <th>Role</th> 
-            <th>Username</th> 
-            <th>Password</th> 
-            <th>First Name</th> 
-            <th>Last Name</th> 
-            <th>Billing Info</th>
+        <tr>
+            <td><jsp:getProperty name = "book1" property = "isbn"/></td><td><jsp:getProperty name = "book1" property = "title"/></td><td><jsp:getProperty name = "book1" property = "author"/></td><td><jsp:getProperty name = "book1" property = "edition"/></td><td><jsp:getProperty name = "book1" property = "price"/></td>
         </tr>
-        <%
-        try{ 
-            connection = DBConnection.createConnection();
-            statement = connection.createStatement();
-            String sql = "SELECT * FROM user";
-            resultSet = statement.executeQuery(sql);
-            PrintWriter display2 = response.getWriter();
-            while(resultSet.next()){
-                display2.println("<tr><td>" + resultSet.getInt("id") + "</td><td>" + resultSet.getString("role") + "</td><td>" + resultSet.getString("username") + "</td><td>" + resultSet.getString("pword") + "</td><td>" + resultSet.getString("firstname") + "</td><td>" + resultSet.getString("lastname") + "</td><td>" + resultSet.getString("billinginfo") + "</td></tr>");
-            }
-            resultSet.close();
-            display2.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        %>
     </table>
-    
-    <h3>Product Shipping Tracker</h3>
-    <table align="center" cellpadding="5" cellspacing="5" border="1">
-        <tr bgcolor="#A52A2A">
-            <th>ID</th> 
-            <th>ISBN</th> 
-            <th>Username</th> 
-        </tr>
-        <%
-        try{ 
-            connection = DBConnection.createConnection();
-            statement = connection.createStatement();
-            String sql = "SELECT * FROM tracking";
-            resultSet = statement.executeQuery(sql);
-            PrintWriter display3 = response.getWriter();
-            while(resultSet.next()){
-                display3.println("<tr><td>" + resultSet.getInt("id") + "</td><td>" + resultSet.getString("ISBN") + "</td><td>" + resultSet.getString("userID") +"</td></tr>");
-            }
-            resultSet.close();
-            display3.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        %>
-    </table>
-    
+
     <h3>Sales Records</h3>
     <table align="center" cellpadding="5" cellspacing="5" border="1">
         <tr bgcolor="#A52A2A">
@@ -112,22 +39,10 @@
             <th>Price</th> 
             <th>Username</th> 
         </tr>
-        <%
-        try{ 
-            connection = DBConnection.createConnection();
-            statement = connection.createStatement();
-            String sql = "SELECT * FROM sale";
-            resultSet = statement.executeQuery(sql);
-            PrintWriter display3 = response.getWriter();
-            while(resultSet.next()){
-                display3.println("<tr><td>" + resultSet.getInt("booktitle") + "</td><td>" + resultSet.getString("price") + "</td><td>" + resultSet.getString("username") +"</td></tr>");
-            }
-            resultSet.close();
-            display3.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        %>
+        <tr>
+            <jsp:useBean id = "user1" class = "project3.LoginBean"/>
+            <td><jsp:getProperty name = "book1" property = "title"/></td><td><jsp:getProperty name = "book1" property = "price"/></td><td><jsp:getProperty name = "user1" property = "username"/></td>
+        </tr>
     </table>
     
   <%@ include file="p3_footer.jsp" %> 
