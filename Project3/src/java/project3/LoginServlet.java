@@ -8,7 +8,9 @@ package project3;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,9 +39,20 @@ public class LoginServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         
           /* For login purpose */
-            String name=request.getParameter("username");  
-            String password=request.getParameter("password"); 
-
+            String name=null;
+            String password=null;
+            
+            String username2 = (String)request.getAttribute("userName");
+            String password2 = (String)request.getAttribute("password");
+            
+            if (username2 != null && password2 != null){
+                name = username2;
+                password=password2;
+            }
+            else {
+                name=request.getParameter("username");  
+                password=request.getParameter("password"); 
+            }
             LoginBean bean=new LoginBean();  
             bean.setName(name);  
             bean.setPassword(password);  
@@ -51,15 +64,45 @@ public class LoginServlet extends HttpServlet {
                 if(userValidate.equals("true"))
                 {   
                     HttpSession session = request.getSession();
-                    session.setAttribute("Admin", name);
-                    request.setAttribute("username", name);
-                    request.getRequestDispatcher("p3_userView.jsp").forward(request, response); 
+                    session.setMaxInactiveInterval(10*60);
+                    session.setAttribute("user", name);
+                    request.setAttribute("userName", name);
+                    request.setAttribute("password", password);
+                    
+                   
+                    Connection connection = null;
+                    Statement statement = null;
+                    ResultSet resultSet = null;
+                    List<Bookbean> showBook = new ArrayList<Bookbean>();
+                    try{ 
+                        connection = DBConnection.createConnection();
+                        statement=connection.createStatement();
+                        String sql ="SELECT * FROM book";
+
+                        resultSet = statement.executeQuery(sql);
+                        while(resultSet.next()){
+                            Bookbean book = new Bookbean();
+                            book.setISBN(resultSet.getInt("isbn"));
+                            book.setTitle(resultSet.getString("title")); 
+                            book.setAuthor(resultSet.getString("author")); 
+                            book.setEdition(resultSet.getInt("edition"));
+                            book.setPrice(resultSet.getInt("price"));
+                            showBook.add(book);
+                        }
+                        
+//                        showBook.forEach((b) -> {
+//                            System.out.println(b);
+//                        });
+                        request.setAttribute("showBook",showBook);
+                        request.getRequestDispatcher("/p3_userView.jsp").forward(request, response);
+                     } 
+                    catch (Exception e) {
+                           e.printStackTrace();
+                    }                    
                 }
                 else
                 {
-                    System.out.println("Error message = "+userValidate);
                     request.setAttribute("errMessage", userValidate);
-
                     request.getRequestDispatcher("p3_login_errors.jsp").forward(request, response);
                 }
             }

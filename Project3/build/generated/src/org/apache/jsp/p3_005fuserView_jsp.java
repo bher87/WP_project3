@@ -123,18 +123,21 @@ public final class p3_005fuserView_jsp extends org.apache.jasper.runtime.HttpJsp
         ResultSet resultSet = null;
     
       out.write("\n");
+      out.write("    <h3>Welcome ");
+out.println(request.getAttribute("userName")); 
+      out.write("</h3>\n");
       out.write("    <h2 align=\"center\"><font><strong>Retrieve data from database in jsp</strong></font></h2>\n");
       out.write("        <table align=\"center\" cellpadding=\"5\" cellspacing=\"5\" border=\"1\">\n");
       out.write("            <tr>\n");
-      out.write("\n");
+      out.write("                \n");
       out.write("            </tr>\n");
       out.write("            <tr bgcolor=\"#A52A2A\">\n");
-      out.write("                <td><b>id</b></td>\n");
-      out.write("                <td><b>Body Style</b></td>\n");
-      out.write("                <td><b>Miles(K)</b></td>\n");
-      out.write("                <td><b>Year</b></td>\n");
-      out.write("                <td><b>Price(K)</b></td>\n");
-      out.write("                <td><b>Add To Card</b></td>\n");
+      out.write("            <td><b>ISBN</b></td>\n");
+      out.write("            <td><b>Title Style</b></td>\n");
+      out.write("            <td><b>Author</b></td>\n");
+      out.write("            <td><b>Edition</b></td>\n");
+      out.write("            <td><b>Price</b></td>\n");
+      out.write("            <td><b>Add To Card</b></td>\n");
       out.write("            </tr>\n");
       out.write("            ");
 
@@ -179,6 +182,9 @@ public final class p3_005fuserView_jsp extends org.apache.jasper.runtime.HttpJsp
       out.write("                <input type=\"hidden\" name=\"price\" value=\"");
       out.print(resultSet.getInt("price") );
       out.write("\">\n");
+      out.write("                <input type=\"hidden\" name=\"username\" value=\"");
+      out.print(request.getAttribute("userName") );
+      out.write("\">\n");
       out.write("                <td><input type=\"submit\" value=\"Add To Card\"/></td>\n");
       out.write("            </tr>\n");
       out.write("            </form>\n");
@@ -193,8 +199,10 @@ public final class p3_005fuserView_jsp extends org.apache.jasper.runtime.HttpJsp
       out.write("    \n");
       out.write("\n");
       out.write("    </table>\n");
-      out.write("    <div style=\"text-align:center\">  \n");
-      out.write("        <input alignment=\"center\" type=\"submit\" name=\"submit\" value=\"Proceed to Check-out\" \n");
+      out.write("    <div style=\"text-align:center\"> \n");
+      out.write("        <form action=\"/p3_checkout.jsp\">\n");
+      out.write("            <input alignment=\"center\" type=\"submit\" name=\"submit\" value=\"Proceed to Check-out\"/> \n");
+      out.write("               </form>\n");
       out.write("    </div> \n");
       out.write("\n");
       out.write("  ");

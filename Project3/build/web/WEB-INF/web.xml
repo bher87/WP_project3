@@ -24,6 +24,26 @@
         <servlet-name>LoginAdminServlet</servlet-name>
         <servlet-class>project3.LoginAdminServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>project3.OrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>project3.CheckoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlaceOrderServlet</servlet-name>
+        <servlet-class>project3.PlaceOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SeeOrderServlet</servlet-name>
+        <servlet-class>project3.SeeOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GuestServlet</servlet-name>
+        <servlet-class>project3.GuestServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -47,6 +67,26 @@
     <servlet-mapping>
         <servlet-name>LoginAdminServlet</servlet-name>
         <url-pattern>/LoginAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/OrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <url-pattern>/CheckoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlaceOrderServlet</servlet-name>
+        <url-pattern>/PlaceOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SeeOrderServlet</servlet-name>
+        <url-pattern>/SeeOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuestServlet</servlet-name>
+        <url-pattern>/GuestServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

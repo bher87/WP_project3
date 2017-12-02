@@ -8,15 +8,18 @@ package project3;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import project3.LoginServlet;
 
 /**
  *
@@ -37,82 +40,94 @@ public class AddToCart extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Cart shoppingCart;
         shoppingCart = (Cart) session.getAttribute("Cart");
         if(shoppingCart == null){
           shoppingCart = new Cart();
-          session.setAttribute("Cart", shoppingCart);
+          session.setAttribute("shop", shoppingCart);
         }
         String title = request.getParameter("title");
-        Integer price = Integer.parseInt(request.getParameter("price"));
+        int price = Integer.parseInt(request.getParameter("price"));
         shoppingCart.addToCart(title, price);
-        session.setAttribute("Cart", shoppingCart);
-         String name=request.getParameter("username");  
-            String password=request.getParameter("password"); 
+        session.setAttribute("shop", shoppingCart);
+        
+        String username=request.getParameter("username");
 
-            LoginBean bean=new LoginBean();  
-            bean.setName(name);  
-            bean.setPassword(password);  
-            request.setAttribute("bean",bean);   
+        
+
+     //   request.getAtribute("userName");  
 
  
-//        Connection con = null;
-//        Statement statement = null;
-//        ResultSet resultSet = null;
-//
-//        try
-//        {
-//            con = DBConnection.createConnection();
-//            statement = con.createStatement();
-//            resultSet = statement.executeQuery("SELECT username,password,role FROM admins");
-//
+        Connection con = null;
+      //  Statement statement = null;
+        ResultSet resultSet = null;
+        PreparedStatement preStatement = null;
+
+        try
+        {
+            con = DBConnection.createConnection();
+            String query = "INSERT INTO sale (buyBook, price, customer) VALUES (?,?,?)";
+            preStatement = con.prepareStatement(query);           
+            preStatement.setString(1, title);
+            preStatement.setInt(2, price);
+            preStatement.setString(3, username);
+        
+            preStatement.executeUpdate();
+           
+            
+
 //            while(resultSet.next())
 //            {
 //
 //
 //            }
-//        }
-//        catch(SQLException e)
-//        {
-//            e.printStackTrace();
-//        }
-        int total=0;
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>result</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Book successfully added to cart </h1>");
-            out.println("<hr>");
-            out.println("<h2>REVIEW BEFORE CHECKOUT</h2>");
-            out.println("<tr><th>Book Title </th><th>Price</th></tr>");
-            HashMap<String, Integer> items = shoppingCart.getItems();
-            out.println("<table border='1px'>");
-             
-            for(String key: items.keySet()){
-                out.println("<tr><td>"+key+" </td><td>"+"$"+items.get(key)+"</td></tr>");
-                total += items.get(key);
-            }
-            
-            out.println("<table>");
-            out.println("<hr>");
-            out.println("Total: "+"$"+ total);
-            out.println("<br/>");
-            out.println("<br/>");
-            out.println("<form action='p3_userView.jsp'>"
-                    + "<input type='submit' value='Continue Shopping'>"
-                    + "</form>");
-            out.println("<form action='p3_pay.jsp'>"
-                    + "<input type='submit' value='Pay'>"
-                    + "</form>");
-            out.println("</body>");
-            out.println("</html>");
         }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        int total=0;
+        request.setAttribute("item",shoppingCart);
+//        HashMap<String, Integer> items = shoppingCart.getItems();       
+        request.getRequestDispatcher("/p3_checkout.jsp").forward(request, response);
+//        
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>result</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Book successfully added to cart </h1>");
+//            out.println("<hr>");
+//            out.println("<h2>REVIEW BEFORE CHECKOUT</h2>");
+//            out.println("<tr><td>Book Title </td><td>Price</td></tr>");
+//            
+//
+//            out.println("<table border='1px'>");
+//             
+//            for(String key: items.keySet()){
+//                out.println("<tr><td>"+key+" </td><td>"+"$"+items.get(key)+"</td></tr>");
+//                total += items.get(key);
+//            }
+//            
+//            out.println("</table>");
+//            out.println("<hr>");
+//            out.println("Total: "+"$"+ total);
+//            out.println("<br/>");
+//            out.println("<br/>");
+//            out.println("<form action='p3_userView.jsp'>"
+//                    + "<input type='submit' value='Continue Shopping'>"
+//                    + "</form>");
+//            out.println("<form action='p3_pay.jsp'>"
+//                    + "<input type='submit' value='Pay'>"
+//                    + "</form>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

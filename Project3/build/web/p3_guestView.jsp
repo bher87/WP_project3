@@ -5,59 +5,44 @@
 --%>
 
 
-    <%@page import="java.sql.ResultSet"%>
+    <%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="project3.Bookbean"%>
+<%@page import="java.sql.ResultSet"%>
     <%@page import="java.sql.Statement"%>
     <%@page import="java.sql.Connection"%>
     <%@page import="java.sql.*"%>
     <%@page import="project3.DBConnection" %>
     
-     
-    <%
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
-    %>
-    <h2 align="center"><font><strong>Book For Sale</strong></font></h2>
-    <table align="center" cellpadding="5" cellspacing="5" border="1">
-        <tr>
-
-        </tr>
-        <tr bgcolor="#A52A2A">
-            <td><b>ISBN</b></td>
-            <td><b>Title Style</b></td>
-            <td><b>Author</b></td>
-            <td><b>Edition</b></td>
-            <td><b>Price</b></td>
-        </tr>
-        <%
-            try{ 
-                connection = DBConnection.createConnection();
-                statement=connection.createStatement();
-                String sql ="SELECT * FROM book";
-
-                resultSet = statement.executeQuery(sql);
-                while(resultSet.next()){
-            %>
-            <tr bgcolor="#DEB887">
-
-                <td><%=resultSet.getInt("isbn")%></td>
-                <td><%=resultSet.getString("title") %></td>
-                <td><%=resultSet.getString("author") %></td>
-                <td><%=resultSet.getInt("edition") %></td>
-                <td><%=resultSet.getInt("price") %></td>
-
+    <%@ include file="p3_header.jsp" %> 
+    <h2 align="center"><font><strong>Retrieve data from database in jsp</strong></font></h2>
+        <table align="center" cellpadding="5" cellspacing="5" border="1">
+        
+            <tr bgcolor="#A52A2A">
+                <td><b>ISBN</b></td>
+                <td><b>Title Style</b></td>
+                <td><b>Author</b></td>
+                <td><b>Edition</b></td>
+                <td><b>Price</b></td>
             </tr>
+            
+            <% List<Bookbean> showbook = (List<Bookbean>)request.getAttribute("showBook"); %>
+            <% Iterator it=showbook.iterator();
+                while(it.hasNext())
+            {
+                Bookbean b=(Bookbean)it.next();
+            %>    
+            <tr>
+                <td><%=b.getISBN()%></td>
+                <td><%=b.getTitle() %></td>
+                <td><%=b.getAuthor() %></td>
+                <td><%=b.getEdition() %></td>
+                <td><%=b.getPrice() %></td>          
+            </tr>
+            <% }  %>
+    </table>
+<%@ include file="p3_footer.jsp" %> 
 
-
-            <% 
-            }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            %>
-            </table>
-   
  
         
 

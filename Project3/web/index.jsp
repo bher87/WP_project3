@@ -5,11 +5,13 @@
 --%>
 
 
+   <div style="text-align:center"> 
+        <form action="GuestServlet" method="post">
+            <input type="submit" value="START"/>
+        </form> 
+    </div> 
 
-<%@ include file="p3_header.jsp" %> 
 
-<%@ include file="p3_guestView.jsp" %> 
-        
-<%@ include file="p3_footer.jsp" %> 
+
         
 

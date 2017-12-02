@@ -7,6 +7,11 @@ package project3;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,33 +39,77 @@ public class LoginAdminServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         
           /* For login purpose */
-                String name=request.getParameter("username");  
-                String password=request.getParameter("password"); 
+        String admin=null;  
+        String password=null;
+        
+        String admin1=(String)request.getAttribute("admin1");  
+        String password1=(String)request.getAttribute("password1");
+        
+        if(admin1 != null && password1 != null){
+            admin = admin1;
+            password = password1;
+        }
+        else {
+            admin=request.getParameter("username");
+            password=request.getParameter("password");
+        }
 
-                LoginBean bean=new LoginBean();  
-                bean.setName(name);  
-                bean.setPassword(password);  
-                request.setAttribute("bean",bean);  
+        LoginBean bean=new LoginBean();  
+        bean.setName(admin);  
+        bean.setPassword(password);  
+        request.setAttribute("bean",bean);  
 
-                LoginAdminDao loginDao = new LoginAdminDao();
-                try {
-                    String userValidate = loginDao.authenticateAdmin(bean);
-                    if(userValidate.equals("admin"))
-                    {   
-                        HttpSession session = request.getSession();
-                        session.setAttribute("user", name);
-                        request.setAttribute("admin", name);
-                        request.getRequestDispatcher("p3_admin.jsp").forward(request, response); 
-                    }
-                    else
-                    {
-                        request.setAttribute("err", userValidate);
-                        request.getRequestDispatcher("p3_login_errors.jsp").forward(request, response);
-                    }
+        LoginAdminDao loginDao = new LoginAdminDao();
+        try {
+            String userValidate = loginDao.authenticateAdmin(bean);
+            if(userValidate.equals("admin"))
+            {   
+                HttpSession session = request.getSession();                                          
+                session.setMaxInactiveInterval(10*60);
+                request.setAttribute("admin", admin);
+                request.setAttribute("password", password);
+
+                Connection connection = null;
+                Statement statement = null;
+                ResultSet resultSet = null;
+                List<Bookbean> showBook = new ArrayList<Bookbean>();
+                try{ 
+                    connection = DBConnection.createConnection();
+                    statement=connection.createStatement();
+                    String sql ="SELECT * FROM book";
+
+                    resultSet = statement.executeQuery(sql);
+                    while(resultSet.next()){
+                        Bookbean book = new Bookbean();
+                        book.setISBN(resultSet.getInt("isbn"));
+                        book.setTitle(resultSet.getString("title")); 
+                        book.setAuthor(resultSet.getString("author")); 
+                        book.setEdition(resultSet.getInt("edition"));
+                        book.setPrice(resultSet.getInt("price"));
+                        showBook.add(book);
                 }
-                catch (Exception e1){
-                    e1.printStackTrace();
-                }
+
+//                        showBook.forEach((b) -> {
+//                            System.out.println(b);
+//                        });
+                request.setAttribute("showBook",showBook);
+                request.getRequestDispatcher("p3_admin_1.jsp").forward(request, response); 
+
+            } 
+            catch (Exception e) {
+                   e.printStackTrace();
+            }
+        }
+        else
+        {
+            request.setAttribute("err", userValidate);
+            request.getRequestDispatcher("p3_login_errors.jsp").forward(request, response);
+        }
+
+        }
+        catch (Exception e1){
+            e1.printStackTrace();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

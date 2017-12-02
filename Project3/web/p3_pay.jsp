@@ -9,8 +9,10 @@
     
     <h2>Your order has been placed</h2>
     <br/><br/>
-    <form action='p3_userView.jsp'>
-        <input type='submit' value='Continue Shopping'>
+    <form action="LoginServlet" method="post">
+        <input type="hidden" name="username" value="<%=request.getAttribute("userName") %>">
+        <input type="hidden" name="password" value="<%=request.getAttribute("password") %>">
+        <input type="submit" value="Continue Shopping"/>
     </form>
  
         

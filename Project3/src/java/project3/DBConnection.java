@@ -34,7 +34,6 @@ public static Connection createConnection()
             e.printStackTrace();
         }
         con = DriverManager.getConnection(url, username, password);
-        System.out.println("Post establishing a DB connection - "+con);
         }
     catch (Exception e)
     {

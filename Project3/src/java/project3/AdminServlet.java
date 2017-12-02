@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,6 +39,12 @@ public class AdminServlet extends HttpServlet {
         int edition = Integer.parseInt(request.getParameter("edition"));
         int price = Integer.parseInt(request.getParameter("price"));
         
+        String admin = request.getParameter("admin");
+        String password = request.getParameter("password");
+         
+        request.setAttribute("admin1", admin);
+        request.setAttribute("password1", password);
+                    
         Bookbean bean = new Bookbean();
         bean.setISBN(isbn);
         bean.setTitle(title);
@@ -50,12 +57,12 @@ public class AdminServlet extends HttpServlet {
         
         if(bookAdded.equals("SUCCESS"))   //On success, you can display a message to user on Home page
         {
-            request.getRequestDispatcher("p3_admin.jsp").forward(request, response);
+            request.getRequestDispatcher("/LoginAdminServlet").forward(request, response);
         }
         else   //On Failure, display a meaningful message to the User.
         {
             request.setAttribute("errMessage", bookAdded);
-            request.getRequestDispatcher("p3_admin.jsp").forward(request, response);
+            request.getRequestDispatcher("p3_admin_1.jsp").forward(request, response);
         }
             
     }

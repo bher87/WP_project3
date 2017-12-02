@@ -47,7 +47,7 @@
         <div class="wrap">
             <h1>Welcome to CSC 4370 Book Store </h1>
             <div class="navbarWrap navbar" id="nav"> 
-                <a href="p3_guestView.jsp">Home</a>
+                <a href="GuestServlet">Home</a>
                 <a href="p3_login.jsp">Login</a>
                 <a href="p3_register.jsp">Registration</a>
                 
